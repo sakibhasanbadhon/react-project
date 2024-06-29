@@ -1,8 +1,8 @@
 
-const Hero = () => {
+const Hero = (props) => {
     return (
         <div>
-            <img src="https://rabbil.com/files/rabbilVai.png" alt="" />
+            <h1> {props.title} Sakib</h1>
         </div>
     );
 };
