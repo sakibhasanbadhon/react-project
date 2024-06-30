@@ -1,20 +1,27 @@
-
-import { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Hero from './assets/component/Hero';
+
 const App = () => {
+  const [apiData, setApiData] = useState(null);
+  const displayData = useRef();
 
-  let titleText = useRef();
+  const fetchData = async () => {
+    const response = await fetch("https://dummyjson.com/products");
+    const data = await response.json();
+    setApiData(data);
+  };
 
-  const TextChange =()=>{
-    titleText.current.classList.remove('text-success');
-    titleText.current.classList.add('text-danger');
-  }
+  const showData = () => {
+    if (displayData.current && apiData) {
+      displayData.current.innerText = JSON.stringify(apiData, null, 2);
+    }
+  };
 
- 
   return (
     <div>
-      <h1 className='text-success' ref={titleText}>sakib hasanbadhon</h1>
-      <button onClick={TextChange}>Show</button>
+      <p ref={displayData}></p>
+      <button onClick={fetchData}>Call Api</button>
+      <button onClick={showData}>Show Data</button>
     </div>
   );
 };
